@@ -7,17 +7,20 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Define Player Variables
-    private float playerSpeed, playerJumpHeight, playerLives;
-    private int jumps = 0;
-    private int maxJumps = 2;
+
+#region Variables
+    private float playerSpeed, playerJumpHeight;
+    //private int jumps = 0;
+    //private int maxJumps = 2;
     private Rigidbody2D rb;
-    private bool isGrounded;
+    //private bool isGrounded;
     public GameObject deathText;
+    public GameObject pauseMenu;
+    public bool isPaused;
     
     // Checkpoints
     public GameObject spawnPoint;
     public GameObject checkpoint;
-    public GameObject[] checkpoints;
     public bool isDisabled;
     
     //bullet
@@ -25,12 +28,14 @@ public class Player : MonoBehaviour
     public Transform firingPoint;
     public float bulletSpeed = 10;
     
-    // Start is called before the first frame update
+#endregion
+
+#region Start and Update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    // Update is called once per frame
+    
     void Update()
     {
         Move();
@@ -39,6 +44,7 @@ public class Player : MonoBehaviour
             Die();
         }
     }
+#endregion
 
     /// <summary>
     /// All player movement controlled here
@@ -46,7 +52,7 @@ public class Player : MonoBehaviour
     void Move()
     {
         playerSpeed = 5f;
-        playerJumpHeight = 400f;
+        playerJumpHeight = 200f;
         // Check if grounded
         // if(isGrounded)
         // {
@@ -55,17 +61,24 @@ public class Player : MonoBehaviour
         // player movement controls
         if(Input.GetKey(KeyCode.A))
         {
+            if(isPaused)
+                return;
+            
             rb.AddForce(Vector2.left*playerSpeed);
             //move left
         }
         if(Input.GetKey(KeyCode.D))
         {
+            if(isPaused)
+                return;
             rb.AddForce(Vector2.right*playerSpeed);
             //move right
         }
         // Jump mechanic
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            if(isPaused)
+                return;
             //if(jumps <= maxJumps)
             
                 rb.AddForce(Vector2.up * playerJumpHeight);
@@ -74,8 +87,47 @@ public class Player : MonoBehaviour
         }
         if(Input.GetMouseButtonDown(0))
         {
+            if(isPaused)
+                return;
             FireBullet();
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(!isPaused)
+            {
+                Pause();
+                isPaused = true;
+            }
+            else
+            {
+                pauseMenu.SetActive(false);
+                isPaused = false;
+                Time.timeScale = 1;
+            }
+        }
+    }
+
+#region Player Mechanics
+
+    /// <summary>
+    /// Pauses Game, Sets timescale to 0
+    /// </summary>
+    void Pause()
+    {
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0;
+        //isPaused = false;
+    }
+
+    /// <summary>
+    /// Unpauses Game, Sets timescale to 1
+    /// </summary>
+    public void UnPause()
+    {
+        pauseMenu.SetActive(false);
+        isPaused = false;
+        Time.timeScale = 1;
     }
 
     /// <summary>
@@ -110,6 +162,10 @@ public class Player : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Makes Death Text appear
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DeathText()
     {
         deathText.gameObject.SetActive(true);
@@ -117,6 +173,9 @@ public class Player : MonoBehaviour
         deathText.gameObject.SetActive(false);
     }
     
+#endregion
+
+#region Collisions
     private void OnCollisionEnter2D(Collision2D other)
     {
 
@@ -135,4 +194,6 @@ public class Player : MonoBehaviour
             checkpoint = other.gameObject;
         }
     }
+#endregion
+    
 }
