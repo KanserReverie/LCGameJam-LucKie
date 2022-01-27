@@ -117,7 +117,6 @@ public class Player : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
-        //isPaused = false;
     }
 
     /// <summary>
