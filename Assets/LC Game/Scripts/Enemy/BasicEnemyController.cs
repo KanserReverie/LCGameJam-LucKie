@@ -22,17 +22,39 @@ namespace LCGame.Enemy
             transform.position = pos1.position;
             enemyState = EnemyState.Walking;
             animator = GetComponentInChildren<Animator>();
+
+            if(pos1.position.x > pos2.position.x)
+            {
+                goingRight = true;
+                gameObject.transform.localScale= new Vector3(-gameObject.transform.localScale.x,gameObject.transform.localScale.y,gameObject.transform.localScale.z);
+            }
+            else
+            {
+                goingRight = false;
+            }
         }
 
     #region Enemy Movement
         [SerializeField] private Transform pos1;
         [SerializeField] private Transform pos2;
-        public float speed = 1.0f;
- 
-        void Update()
+        [SerializeField] private float speed = 1.0f;
+        private Vector3 lastPosition;
+
+        void FixedUpdate()
         {
-            transform.position += new Vector3(1, 0, 0);
-            //= Vector3.Lerp (pos1.position, pos2.position, Mathf.PingPong(Time.time*speed, 1.0f));
+            lastPosition = transform.position;
+            transform.position = Vector3.Lerp(pos1.position, pos2.position, (Mathf.Sin(speed * Time.time) + 1.0f) / 2.0f);
+
+            if(transform.position.x < lastPosition.x && goingRight)
+            {
+                gameObject.transform.localScale= new Vector3(-gameObject.transform.localScale.x,gameObject.transform.localScale.y,gameObject.transform.localScale.z);
+                goingRight = false;
+            }
+            else if(transform.position.x > lastPosition.x && !goingRight)
+            {
+                gameObject.transform.localScale= new Vector3(-gameObject.transform.localScale.x,gameObject.transform.localScale.y,gameObject.transform.localScale.z);
+                goingRight = true;
+            }
         }
     #endregion
         
