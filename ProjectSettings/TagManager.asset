@@ -43,3 +43,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2404596579
+    locked: 0
+  - name: Entities
+    uniqueID: 221682977
+    locked: 0
+  - name: Foreground
+    uniqueID: 253152477
+    locked: 0
+  - name: Colliders
+    uniqueID: 1641659489
+    locked: 0
+  - name: Ground
+    uniqueID: 1486774343
+    locked: 0
