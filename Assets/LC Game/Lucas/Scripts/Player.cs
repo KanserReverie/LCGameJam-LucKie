@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     // Define Player Variables
 
 #region Variables
-    private float playerSpeed, playerJumpHeight;
+    [SerializeField] private float playerSpeed, playerJumpHeight;
     //private int jumps = 0;
     //private int maxJumps = 2;
     private Rigidbody2D rb;
@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spawnPoint = GameObject.FindGameObjectWithTag("Spawn");
+
+        transform.position = spawnPoint.transform.position;
     }
     
     void Update()
@@ -51,8 +54,6 @@ public class Player : MonoBehaviour
     /// </summary>
     void Move()
     {
-        playerSpeed = 5f;
-        playerJumpHeight = 200f;
         // Check if grounded
         // if(isGrounded)
         // {

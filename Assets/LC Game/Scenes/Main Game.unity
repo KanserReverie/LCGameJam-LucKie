@@ -716,6 +716,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1733297016413475473, guid: fa30d97310fcbae43b3fef4f5d8cd749, type: 3}
+      propertyPath: playerSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733297016413475473, guid: fa30d97310fcbae43b3fef4f5d8cd749, type: 3}
+      propertyPath: playerJumpHeight
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 1733297016413475474, guid: fa30d97310fcbae43b3fef4f5d8cd749, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -762,11 +770,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2601192281037870330, guid: fa30d97310fcbae43b3fef4f5d8cd749, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.142
+      value: 0.308
       objectReference: {fileID: 0}
     - target: {fileID: 2601192281037870330, guid: fa30d97310fcbae43b3fef4f5d8cd749, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.007
+      value: 0.104
       objectReference: {fileID: 0}
     - target: {fileID: 6496346514821008072, guid: fa30d97310fcbae43b3fef4f5d8cd749, type: 3}
       propertyPath: m_LocalScale.x
